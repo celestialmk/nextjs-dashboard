@@ -4,6 +4,7 @@ import { z } from 'zod'; //library to simplify validating types
 import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
 import { redirect } from '@/node_modules/next/navigation';
+import exp from 'constants';
 
 const FormSchema = z.object({
     id: z.string(),
@@ -13,6 +14,8 @@ const FormSchema = z.object({
     date: z.string()
 })
 
+
+//Create Invoices
 const CreateInvoice = FormSchema.omit({id: true, date: true})
 
 export async function createInvoice(formData: FormData){
@@ -36,6 +39,8 @@ export async function createInvoice(formData: FormData){
 
 }
 
+
+//Update Invoices
 const UpdateInvoice = FormSchema.omit({id: true, date: true});
 
 export async function updateInvoice(id: string, formData: FormData){
@@ -55,4 +60,10 @@ export async function updateInvoice(id: string, formData: FormData){
 
     revalidatePath('/dashboard/invoices');
     redirect('/dashboard/invoices');
+}
+
+//Delete Invoices
+export async function deleteInvoice(id:string){
+    await sql `DELETE FROM invoices WHERE id = ${id}`;
+    revalidatePath('/dashboard/invoices');
 }
