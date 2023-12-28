@@ -5,8 +5,20 @@ import { CreateInvoice } from '@/app/ui/invoices/buttons';
 import { lusitana } from '@/app/ui/fonts';
 import { InvoicesTableSkeleton } from '@/app/ui/skeletons';
 import { Suspense } from 'react';
+import { SearchParamsContext } from '@/node_modules/next/dist/shared/lib/hooks-client-context.shared-runtime';
  
-export default async function Page() {
+
+//Page components accept a prop called searchParams so you can pass the current URL params to the <Table> component
+export default async function Page({
+    searchParams,}: {
+        searchParams?:{
+            query?: string;
+            page?: string
+        };
+    }
+) {
+  const query = searchParams?.query || '';
+  const currentPage = Number(searchParams?.page) || 1;
   return (
     <div className="w-full">
       <div className="flex w-full items-center justify-between">
