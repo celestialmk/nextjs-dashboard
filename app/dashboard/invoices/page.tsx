@@ -6,7 +6,12 @@ import { lusitana } from '@/app/ui/fonts';
 import { InvoicesTableSkeleton } from '@/app/ui/skeletons';
 import { Suspense } from 'react';
 import { SearchParamsContext } from '@/node_modules/next/dist/shared/lib/hooks-client-context.shared-runtime';
- import { fetchInvoicesPages } from '@/app/lib/data'
+import { fetchInvoicesPages } from '@/app/lib/data'
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Invoices'
+}
 
 //Page components accept a prop called searchParams so you can pass the current URL params to the <Table> component
 export default async function Page({
